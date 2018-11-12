@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Komodal Demo Project</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg">   
+  <div id="komodal" class="row">
+    <div class="form-style-6" class="col-sm-4">
+        <h1>{{appName}}</h1>
+        <label v-show="isInvalidForm" class="alert">Some required field is/are not provided</label>
+
+        <form action="javascript:void(0);">
+            <label >Start Date-Time*</label>
+            <input v-model.trim="info.start_datetime" type="datetime-local" name="startdate" required>
+
+            <label >End Date-Time*</label>
+            <input v-model.trim="info.end_datetime" type="datetime-local" name="enddate" required>
+
+            <label v-show="hasErr" class="alert">Please enter a 7 digit number</label>
+            <label >Container Number*</label>
+            <input v-model.trim="info.container_number" min="1000000" max="9999999" type="number" name="number" placeholder="Enter a 7 digit number" required>
+
+            <label >Terminal*</label>
+            <select v-model.trim="info.terminal_name" name="terminal" required>
+              <option disabled selected value>Select</option>
+              <option value="LA Terminal-1">LA Terminal-1</option>
+              <option value="LA Terminal-2">LA Terminal-2</option>
+              <option value="LB Terminal-1">LB Terminal-1</option>
+              <option value="LB Terminal-2">LB Terminal-2</option>
+          </select>
+
+
+          <label >Appointment Type*</label>
+          <select v-model.trim="info.appoint_type" name="apptype" required>
+              <option disabled selected value>Select</option>
+              <option value="Import">Import</option>
+              <option value="Export">Export</option>
+              <option value="Empty In">Empty In</option>
+              <option value="Empty Out">Empty Out</option>
+          </select>
+
+          <label >Ship Line Name*</label>
+          <select v-model.trim="info.ship_line_name" name="shipname" required>
+              <option disabled selected value>Select</option>
+              <option value="TICU">TICU</option>
+              <option value="MAGU">MAGU</option>
+              <option value="LATO">LATO</option>
+              <option value="LBLO">LBLO</option>
+          </select> 
+
+          <label >Description</label>
+          <textarea v-model="info.description" rows="3" cols="20" placeholder="Enter your description here..."></textarea>
+
+          <button @click="add_info" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
+
+  <div class="col-sm-8">
+    <table v-show="list_table_info.length">
+      <tr>
+        <th>Container ID</th>
+        <th>Start DateTime (EST)</th>
+        <th>End DateTime (EST)</th>
+        <th>Terminal</th>
+        <th>Appontment Type</th>
+        <th>Shipping Line</th>
+        <th>Edit Action</th>
+    </tr>
+    <tr v-for="(item,index) in list_table_info">
+        <td>{{item.container_id}}</td>
+        <td>{{item.start_datetime}}</td>
+        <td>{{item.end_datetime}}</td>
+        <td>{{item.terminal_name}}</td>
+        <td>{{item.appoint_type}}</td>
+        <td>{{item.ship_line_name}}</td>
+        <td><button type="button" @click="edit_num(index)" class="btn btn-primary">Edit</button></td>
+    </tr>
+</table>
+</div>
+</div>
+<script type="text/javascript" src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="app/app.js"></script>
+</body>
+<footer class="copyright">
+    <p>© Kunal Kapadnis (Image credit: Google)</p>
+</footer>
+</html>
